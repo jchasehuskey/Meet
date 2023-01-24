@@ -25,6 +25,19 @@ class App extends Component {
   //     });
   //   });
   // }
+
+  componentDidMount() {
+    this.mounted = true;
+    getEvents().then((events) => {
+      if (this.mounted) {
+        this.setState({ events, locations: extractLocations(events) });
+      }
+    });
+  }
+
+  componentWillUnmount(){
+    this.mounted = false;
+  }
    
   updateEvents = (location, eventCount) => {
     const { numberOfEvents } = this.state;
@@ -43,18 +56,9 @@ class App extends Component {
     });
   };
 
-  componentDidMount() {
-    this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
-      }
-    });
-  }
 
-  componentWillUnmount(){
-    this.mounted = false;
-  }
+
+
   render() {
     return (
       <div className="App">
