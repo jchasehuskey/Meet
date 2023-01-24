@@ -26,19 +26,6 @@ class App extends Component {
   //   });
   // }
 
-  componentDidMount() {
-    this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        events = events.slice(0,this.state.eventCount);
-        this.setState({ events, locations: extractLocations(events) });
-      }
-    });
-  }
-
-  componentWillUnmount(){
-    this.mounted = false;
-  }
    
   updateEvents = (location, eventCount) => {
     const { numberOfEvents } = this.state;
@@ -56,6 +43,24 @@ class App extends Component {
       });
     });
   };
+
+
+
+
+  componentDidMount() {
+    this.mounted = true;
+    getEvents().then((events) => {
+      if (this.mounted) {
+        events = events.slice(0,this.state.numberOfEvents);
+        this.setState({ events, locations: extractLocations(events) });
+      }
+    });
+  }
+
+  componentWillUnmount(){
+    this.mounted = false;
+  }
+
 
 
 

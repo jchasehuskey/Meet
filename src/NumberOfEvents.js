@@ -1,26 +1,60 @@
+// import React, { Component } from 'react';
+
+// class NumberOfEvents extends Component {
+//   state = { num: 32 };
+
+//   changeNum(value) {
+//     this.setState({ num: value });
+//   }
+
+//   render() {
+//     const { num } = this.state;
+
+//     return (
+//       <input
+//         className='num'
+//         type='number'
+//         value={num}
+//         onChange={(event) => {
+//           this.changeNum(event.target.value);
+//         }}
+//       >
+//       </input>
+//     );
+//   }
+// }
+
+// export default NumberOfEvents;
+
 import React, { Component } from 'react';
 
 class NumberOfEvents extends Component {
-  state = { num: 32 };
+  state = { noe: 32 }
 
-  changeNum(value) {
-    this.setState({ num: value });
+  handleInputChanged = (event, props) => {
+    let inputValue = event.target.value;
+    if(inputValue < 0) inputValue = 0;
+    this.props.updateEvents(null, inputValue);
+    this.setState({ noe: inputValue });
+    console.log(this.props);
   }
-
+  
   render() {
-    const { num } = this.state;
-
+    const { noe } = this.state;
     return (
-      <input
-        className='num'
-        type='number'
-        value={num}
-        onChange={(event) => {
-          this.changeNum(event.target.value);
-        }}
-      >
-      </input>
-    );
+    <div className="NumberOfEvents">
+        <h3># of Events:</h3>
+        <input
+          className="noe-input"
+          type="number"
+          value={noe}
+          onChange={event => {
+            this.handleInputChanged(event);
+          }}
+        >
+        </input>
+    </div>
+    )
   }
 }
 
