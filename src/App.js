@@ -12,8 +12,10 @@ class App extends Component {
   state = {
     events: [], 
     locations:[],
-    numberOfEvents: 32,
-    selectedLocation:undefined
+    // numberOfEvents: 32,
+    // selectedLocation:undefined
+    eventCount:32,
+    selectedLocation:'all'
   }
   // updateEvents = (location) => {
   //   getEvents().then((events) => {
@@ -26,23 +28,51 @@ class App extends Component {
   //   });
   // }
 
+
+  updateEvents = (location, inputNumber) => {
+    const {eventCount, seletedLocation} = this.state;
+    if (location) {
+      getEvents().then((events) => {
+        const locationEvents = (location === 'all') ?
+        events :
+        events.filter((event) => event.location === location);
+        const eventsToShow=locationEvents.slice(0, eventCount);
+        this.setState({
+        events: eventsToShow,
+        seletedLocation: location
+        });
+      });  
+    } else {
+      getEvents().then((events) => {
+        const locationEvents = (seletedLocation === 'all') ?
+        events :
+        events.filter((event) => event.location === seletedLocation);
+        const eventsToShow=locationEvents.slice(0, inputNumber);
+        this.setState({
+          events: eventsToShow,
+          eventCount: inputNumber
+        });
+      })
+    }
+  }
+
    
-  updateEvents = (location, eventCount) => {
-    const { numberOfEvents } = this.state;
-    if (location === undefined) location = this.state.selectedLocation;
-    getEvents().then((events) => {
-      const locationEvents =
-        location === 'all'
-          ? events
-          : events.filter((event) => event.location === location);
-      eventCount = eventCount === undefined ? numberOfEvents : eventCount;
-      this.setState({
-        events: locationEvents.slice(0, eventCount),
-        selectedLocation: location,
-        numberOfEvents: eventCount,
-      });
-    });
-  };
+  // updateEvents = (location, eventCount) => {
+  //   const { numberOfEvents } = this.state;
+  //   if (location === undefined) location = this.state.selectedLocation;
+  //   getEvents().then((events) => {
+  //     const locationEvents =
+  //       location === 'all'
+  //         ? events
+  //         : events.filter((event) => event.location === location);
+  //     eventCount = eventCount === undefined ? numberOfEvents : eventCount;
+  //     this.setState({
+  //       events: locationEvents.slice(0, eventCount),
+  //       selectedLocation: location,
+  //       numberOfEvents: eventCount,
+  //     });
+  //   });
+  // };
 
 
 
@@ -69,8 +99,9 @@ class App extends Component {
     return (
       <div className="App">
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
-        <NumberOfEvents  eventCount={this.state.numberOfEvents}
-            updateEvents={this.updateEvents}/>
+        {/* <NumberOfEvents  eventCount={this.state.numberOfEvents}
+            updateEvents={this.updateEvents}/> */}
+        <NumberOfEvents updateEvents={this.updateEvents}/>
         <EventList events={this.state.events} />
     
       </div>

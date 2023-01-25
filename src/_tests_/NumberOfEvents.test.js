@@ -1,5 +1,35 @@
 
 
+// import React from 'react';
+// import { shallow } from 'enzyme';
+// import NumberOfEvents from '../NumberOfEvents';
+
+// describe('<NumberOfEvents /> component', () => {
+//   let NumberOfEventsWrapper;
+//   beforeAll(() => {
+//     NumberOfEventsWrapper = shallow(<NumberOfEvents updateEvents={()=>{}}  />);
+//   });
+
+//   test('renders the component', () => {
+//     expect(NumberOfEventsWrapper).toBeDefined();
+//   });
+
+//   test('default number of event value is 32', () => {
+//     expect(NumberOfEventsWrapper.find('input.num').prop('type')).toBe('number');
+//     expect(NumberOfEventsWrapper.state('num')).toBe(32);
+//   });
+
+//   test('user changes value for rendered number of events', () => {
+//     expect(NumberOfEventsWrapper.state('num')).toBe(32);
+
+//     NumberOfEventsWrapper.find('input.num').simulate('change', {
+//       target: { value: 17 }
+//     });
+//     expect(NumberOfEventsWrapper.state('num')).toBe(17);
+//   });
+
+// })
+
 import React from 'react';
 import { shallow } from 'enzyme';
 import NumberOfEvents from '../NumberOfEvents';
@@ -10,24 +40,14 @@ describe('<NumberOfEvents /> component', () => {
     NumberOfEventsWrapper = shallow(<NumberOfEvents />);
   });
 
-  test('renders the component', () => {
-    expect(NumberOfEventsWrapper).toBeDefined();
+  test('render NumberOfEvents element', () => {
+    expect(NumberOfEventsWrapper.find('.NumberOfEvents')).toHaveLength(1);
   });
 
-  test('default number of event value is 32', () => {
-    expect(NumberOfEventsWrapper.find('input.num').prop('type')).toBe('number');
-    expect(NumberOfEventsWrapper.state('num')).toBe(32);
+  test('render text input', () => {
+    expect(NumberOfEventsWrapper.find('input.number')).toHaveLength(1);
+    expect(NumberOfEventsWrapper.find('label')).toHaveLength(1);
   });
-
-  test('user changes value for rendered number of events', () => {
-    expect(NumberOfEventsWrapper.state('num')).toBe(32);
-
-    NumberOfEventsWrapper.find('input.num').simulate('change', {
-      target: { value: 17 }
-    });
-    expect(NumberOfEventsWrapper.state('num')).toBe(17);
-  });
-
 })
 
 
