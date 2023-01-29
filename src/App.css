@@ -87,6 +87,12 @@ input[type="number"] {
   position: relative;
 }
 
+.Alert{
+  position:relative !important;
+  margin-bottom:1rem;
+
+}
+
 .suggestions {
   width: 250px;
   position: absolute;
