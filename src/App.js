@@ -7,27 +7,17 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { getEvents, extractLocations } from './api';
 import './nprogress.css';
+import {OfflineAlert} from './Alert';
 
 
 class App extends Component {
   state = {
     events: [], 
     locations:[],
-    // numberOfEvents: 32,
-    // selectedLocation:undefined
     eventCount:32,
     selectedLocation:'all'
   }
-  // updateEvents = (location) => {
-  //   getEvents().then((events) => {
-  //     const locationEvents = (location === 'all') ?
-  //       events :
-  //       events.filter((event) => event.location === location);
-  //     this.setState({
-  //       events: locationEvents
-  //     });
-  //   });
-  // }
+
 
 
   updateEvents = (location, inputNumber) => {
@@ -76,8 +66,6 @@ class App extends Component {
   // };
 
 
-
-
   componentDidMount() {
     this.mounted = true;
     getEvents().then((events) => {
@@ -93,12 +81,16 @@ class App extends Component {
   }
 
 
-
-
-
   render() {
     return (
       <div className="App">
+        <div className="offline-alert">
+          {!navigator.onLine && (
+         <OfflineAlert 
+          text= {'You are currently offline. The event list may not be up-to-date.'}
+          className='OfflineAlert'
+         />)}
+        </div>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         {/* <NumberOfEvents  eventCount={this.state.numberOfEvents}
             updateEvents={this.updateEvents}/> */}
