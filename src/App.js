@@ -84,6 +84,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className="test">TEST</div>
         <div className="offline-alert">
           {!navigator.onLine && (
          <OfflineAlert 
@@ -96,6 +97,7 @@ class App extends Component {
             updateEvents={this.updateEvents}/> */}
         <NumberOfEvents updateEvents={this.updateEvents}/>
         <EventList events={this.state.events} />
+        <OfflineAlert/>
     
       </div>
     );
