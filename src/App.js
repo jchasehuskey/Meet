@@ -82,6 +82,11 @@ class App extends Component {
 
 
   render() {
+    if (navigator.onLine) {
+      console.log('online');
+    } else {
+      console.log('offline');
+    }
     return (
       <div className="App">
         <div className="test">TEST</div>
