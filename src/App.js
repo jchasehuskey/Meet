@@ -74,6 +74,11 @@ class App extends Component {
         this.setState({ events, locations: extractLocations(events) });
       }
     });
+    if (navigator.onLine) {
+      console.log('online');
+    } else {
+      console.log('offline');
+    }
   }
 
   componentWillUnmount(){
