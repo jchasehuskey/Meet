@@ -39,7 +39,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
 .App {
   text-align: center;
-  padding: 2% 5%;
+  /* padding: 2% 5%; */
 }
 
 .App * {
@@ -218,13 +218,14 @@ input[type="number"] {
   background: #1669f2;
 }
 .google-icon-wrapper {
-  position: absolute;
-  margin-top: 1px;
-  margin-left: 1px;
+  /* position: absolute; */
+  /* margin-top: 1px;
+  margin-left: 1px; */
   width: 40px;
   height: 40px;
   border-radius: 2px;
-  background-color: #fff;
+  background-color: #494949;
+  margin-right:1rem;
 }
 .google-icon {
   position: absolute;

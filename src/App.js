@@ -141,7 +141,7 @@ class App extends Component {
   render() {
 
     if (this.state.showWelcomeScreen === undefined) return <div
-    className="App">empty because homescreen is undefined</div>
+    className="App"></div>
     
     if (navigator.onLine) {
       console.log('online');
@@ -153,7 +153,7 @@ class App extends Component {
    window.addEventListener('online', (e) => { console.log('online'); });
     return (
       <div className="App">
-        <div className="test">TEST</div>
+        {/* <div className="test">TEST</div> */}
         <div className="offline-alert">
           {!navigator.onLine && (
          <OfflineAlert 
@@ -166,9 +166,12 @@ class App extends Component {
             updateEvents={this.updateEvents}/> */}
         <NumberOfEvents updateEvents={this.updateEvents}/>
         <EventList events={this.state.events} />
-        {/* <OfflineAlert/> */}
-        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => { getAccessToken() }} />
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => {
+            getAccessToken();
+          }}
+        />
     
       </div>
     );
