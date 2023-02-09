@@ -52,48 +52,7 @@ class App extends Component {
   }
 
 
-  // async componentDidMount() {
-  //   this.mounted = true;
-  //   const accessToken = localStorage.getItem('access_token');
-  //   const isTokenValid = (await checkToken(accessToken)).error ? false :
-  //   true;
-  //   const searchParams = new URLSearchParams(window.location.search);
-  //   const code = searchParams.get("code");
-  //     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
-  //      if ((code || isTokenValid) && this.mounted) {
-  //       getEvents().then((events) => {
-  //      if (this.mounted) {
-  //       this.setState({ events, locations: extractLocations(events) });
-  //     }
-  //    });
-  //   }
-  // }
-
-
-  //   async componentDidMount() {
-  //   this.mounted = true;
-
-  //   const accessToken = localStorage.getItem('access_token');
-  //   const isTokenValid = (await checkToken(accessToken)).error ? false :
-  //   true;
-  //   const searchParams = new URLSearchParams(window.location.search);
-  //   const code = searchParams.get("code");
-  //     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
-  //      if ((code || isTokenValid) && this.mounted) {
-  //     getEvents().then((events) => {
-  //      if (this.mounted) {
-  //        events = events.slice(0,this.state.numberOfEvents);
-  //        this.setState({ events, locations: extractLocations(events) });
-  //      }
-  //      });
-  //     }
-  //   if (navigator.onLine) {
-  //     console.log('online');
-  //   } else {
-  //     console.log('offline');
-  //   }
-  // }
-
+ 
 
   async componentDidMount() {
     this.mounted = true;
@@ -118,20 +77,6 @@ class App extends Component {
 
 
 
-  // componentDidMount() {
-  //   this.mounted = true;
-  //   getEvents().then((events) => {
-  //     if (this.mounted) {
-  //       events = events.slice(0,this.state.numberOfEvents);
-  //       this.setState({ events, locations: extractLocations(events) });
-  //     }
-  //   });
-  //   if (navigator.onLine) {
-  //     console.log('online');
-  //   } else {
-  //     console.log('offline');
-  //   }
-  // }
 
   componentWillUnmount(){
     this.mounted = false;
@@ -153,7 +98,6 @@ class App extends Component {
    window.addEventListener('online', (e) => { console.log('online'); });
     return (
       <div className="App">
-        {/* <div className="test">TEST</div> */}
         <div className="offline-alert">
           {!navigator.onLine && (
          <OfflineAlert 
@@ -162,10 +106,9 @@ class App extends Component {
          />)}
         </div>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
-        {/* <NumberOfEvents  eventCount={this.state.numberOfEvents}
-            updateEvents={this.updateEvents}/> */}
         <NumberOfEvents updateEvents={this.updateEvents}/>
         <EventList events={this.state.events} />
+        <OfflineAlert/>
         <WelcomeScreen
           showWelcomeScreen={this.state.showWelcomeScreen}
           getAccessToken={() => {
