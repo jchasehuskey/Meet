@@ -51,23 +51,34 @@ class App extends Component {
   //   }
   // }
 
+
   updateEvents = (location, inputNumber) => {
     const { eventCount } = this.state;
     if (location === undefined) location = this.state.selectedLocation;
-    getEvents().then((events) => {
-      const locationEvents =
-        location === 'all'
-          ? events
-          : events.filter((event) => event.location === location);
-      inputNumber = inputNumber === undefined ? eventCount : inputNumber;
-      this.setState({
-        events: locationEvents.slice(0, inputNumber),
-        selectedLocation: location,
-        eventCount: inputNumber,
+    if (navigator.onLine) {
+      getEvents().then((events) => {
+        const locationEvents =
+          location === 'all'
+            ? events
+            : events.filter((event) => event.location === location);
+        inputNumber = inputNumber === undefined ? eventCount : inputNumber;
+        this.setState({
+          events: locationEvents.slice(0, inputNumber),
+          selectedLocation: location,
+          eventCount: inputNumber,
+        });
+        localStorage.setItem('events', JSON.stringify(events));
+        localStorage.setItem('locations', JSON.stringify(extractLocations(events)));
       });
-    });
+    } else {
+      this.setState({
+        events: JSON.parse(localStorage.getItem('events')) || [],
+        locations: JSON.parse(localStorage.getItem('locations')) || [],
+        selectedLocation: location,
+        eventCount: inputNumber || eventCount,
+      });
+    }
   };
- 
 
   async componentDidMount() {
     this.mounted = true;
@@ -77,17 +88,63 @@ class App extends Component {
     const code = searchParams.get('code');
     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
     if ((code || isTokenValid) && this.mounted) {
-
-      getEvents().then((events) => {
-        if (this.mounted) {
-          this.setState({
-            events: events.slice(0, this.state.numberOfEvents),
-            locations: extractLocations(events)
-          });
-        }
-      });
+      if (navigator.onLine) {
+        getEvents().then((events) => {
+          if (this.mounted) {
+            this.setState({
+              events: events.slice(0, this.state.numberOfEvents),
+              locations: extractLocations(events),
+            });
+            localStorage.setItem('events', JSON.stringify(events));
+            localStorage.setItem('locations', JSON.stringify(extractLocations(events)));
+          }
+        });
+      } else {
+        this.setState({
+          events: JSON.parse(localStorage.getItem('events')) || [],
+          locations: JSON.parse(localStorage.getItem('locations')) || [],
+        });
+      }
     }
   }
+
+  // updateEvents = (location, inputNumber) => {
+  //   const { eventCount } = this.state;
+  //   if (location === undefined) location = this.state.selectedLocation;
+  //   getEvents().then((events) => {
+  //     const locationEvents =
+  //       location === 'all'
+  //         ? events
+  //         : events.filter((event) => event.location === location);
+  //     inputNumber = inputNumber === undefined ? eventCount : inputNumber;
+  //     this.setState({
+  //       events: locationEvents.slice(0, inputNumber),
+  //       selectedLocation: location,
+  //       eventCount: inputNumber,
+  //     });
+  //   });
+  // };
+ 
+
+  // async componentDidMount() {
+  //   this.mounted = true;
+  //   const accessToken = localStorage.getItem('access_token');
+  //   const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+  //   const searchParams = new URLSearchParams(window.location.search);
+  //   const code = searchParams.get('code');
+  //   this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+  //   if ((code || isTokenValid) && this.mounted) {
+
+  //     getEvents().then((events) => {
+  //       if (this.mounted) {
+  //         this.setState({
+  //           events: events.slice(0, this.state.numberOfEvents),
+  //           locations: extractLocations(events)
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
 
 
