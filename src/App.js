@@ -24,69 +24,43 @@ class App extends Component {
 
 
 
+
+
   // updateEvents = (location, inputNumber) => {
-  //   const {eventCount, seletedLocation} = this.state;
-  //   if (location) {
+  //   const { eventCount } = this.state;
+  //   if (location === undefined) location = this.state.selectedLocation;
+  //   if (navigator.onLine) {
   //     getEvents().then((events) => {
-  //       const locationEvents = (location === 'all') ?
-  //       events :
-  //       events.filter((event) => event.location === location);
-  //       const eventsToShow=locationEvents.slice(0, eventCount);
+  //       const locationEvents =
+  //         location === 'all'
+  //           ? events
+  //           : events.filter((event) => event.location === location);
+  //       inputNumber = inputNumber === undefined ? eventCount : inputNumber;
   //       this.setState({
-  //       events: eventsToShow,
-  //       seletedLocation: location
+  //         events: locationEvents.slice(0, inputNumber),
+  //         selectedLocation: location,
+  //         eventCount: inputNumber,
   //       });
-  //     });  
+  //       localStorage.setItem('events', JSON.stringify(events));
+  //       console.log('events', localStorage.getItem('events'));
+  //       localStorage.setItem('locations', JSON.stringify(extractLocations(events)));
+  //       console.log('locations', localStorage.getItem('locations'));
+  //     });
   //   } else {
-  //     getEvents().then((events) => {
-  //       const locationEvents = (seletedLocation === 'all') ?
-  //       events :
-  //       events.filter((event) => event.location === seletedLocation);
-  //       const eventsToShow=locationEvents.slice(0, inputNumber);
-  //       this.setState({
-  //         events: eventsToShow,
-  //         eventCount: inputNumber
-  //       });
-  //     })
-  //   }
-  // }
-
-
-  updateEvents = (location, inputNumber) => {
-    const { eventCount } = this.state;
-    if (location === undefined) location = this.state.selectedLocation;
-    if (navigator.onLine) {
-      getEvents().then((events) => {
-        const locationEvents =
-          location === 'all'
-            ? events
-            : events.filter((event) => event.location === location);
-        inputNumber = inputNumber === undefined ? eventCount : inputNumber;
-        this.setState({
-          events: locationEvents.slice(0, inputNumber),
-          selectedLocation: location,
-          eventCount: inputNumber,
-        });
-        localStorage.setItem('events', JSON.stringify(events));
-        console.log('events', localStorage.getItem('events'));
-        localStorage.setItem('locations', JSON.stringify(extractLocations(events)));
-        console.log('locations', localStorage.getItem('locations'));
-      });
-    } else {
 
       
-      this.setState({
-        events: JSON.parse(localStorage.getItem('events')) || [],
-        locations: JSON.parse(localStorage.getItem('locations')) || [],
-        selectedLocation: location,
-        eventCount: inputNumber || eventCount,
+  //     this.setState({
+  //       events: JSON.parse(localStorage.getItem('events')) || [],
+  //       locations: JSON.parse(localStorage.getItem('locations')) || [],
+  //       selectedLocation: location,
+  //       eventCount: inputNumber || eventCount,
        
-      });
-      console.log('navigator is offline');
-      console.log('events from local storage', this.state.events);
-      console.log('locations from local storage', this.state.locations);
-    }
-  };
+  //     });
+  //     console.log('navigator is offline');
+  //     console.log('events from local storage', this.state.events);
+  //     console.log('locations from local storage', this.state.locations);
+  //   }
+  // };
 
   // async componentDidMount() {
   //   this.mounted = true;
@@ -117,6 +91,34 @@ class App extends Component {
   //     }
   //   }
   // }
+
+  updateEvents = (location, inputNumber) => {
+    const {eventCount, seletedLocation} = this.state;
+    if (location) {
+      getEvents().then((events) => {
+        const locationEvents = (location === 'all') ?
+        events :
+        events.filter((event) => event.location === location);
+        const eventsToShow=locationEvents.slice(0, eventCount);
+        this.setState({
+        events: eventsToShow,
+        seletedLocation: location
+        });
+      });  
+    } else {
+      getEvents().then((events) => {
+        const locationEvents = (seletedLocation === 'all') ?
+        events :
+        events.filter((event) => event.location === seletedLocation);
+        const eventsToShow=locationEvents.slice(0, inputNumber);
+        this.setState({
+          events: eventsToShow,
+          eventCount: inputNumber
+        });
+      })
+    }
+  }
+
 
 
   async componentDidMount() {
