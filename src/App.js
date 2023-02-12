@@ -81,7 +81,11 @@ class App extends Component {
         locations: JSON.parse(localStorage.getItem('locations')) || [],
         selectedLocation: location,
         eventCount: inputNumber || eventCount,
+       
       });
+      console.log('navigator is offline');
+      console.log('events from local storage', this.state.events);
+      console.log('locations from local storage', this.state.locations);
     }
   };
 
@@ -163,6 +167,7 @@ class App extends Component {
 
 
   render() {
+    console.log('state', this.state);
 
     const { locations, events, eventCount, showWelcomeScreen } = this.state;
 
