@@ -174,14 +174,7 @@ class App extends Component {
     if (this.state.showWelcomeScreen === undefined) return <div
     className="App"></div>
     
-  //   if (navigator.onLine) {
-  //     console.log('online');
-  //   } else {
-  //     console.log('offline');
-  //   }
-  //   window.addEventListener('offline', (e) => { console.log('offline'); });
 
-  //  window.addEventListener('online', (e) => { console.log('online'); });
     return (
       <div className="App">
         <div className="offline-alert">

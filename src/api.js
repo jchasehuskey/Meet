@@ -240,6 +240,7 @@ export const getEvents = async () => {
           return events;
         } catch (error) {
           console.error(error);
+          console.log('no data in local storage');
         }
       }
     }
