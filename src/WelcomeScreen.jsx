@@ -10,7 +10,7 @@ function WelcomeScreen(props) {
           full-stack
           developers
         </h4>
-          <div className="img-container">
+          {/* <div className="img-container">
             <div class='google-icon-wrapper'>
               <img
                 class='google-icon'
@@ -25,7 +25,25 @@ o.svg'
             >
               <b>Sign in with google</b>
             </button>
-          </div>
+          </div> */}
+          <div className="button_cont" align="center">
+<div class="google-btn">
+<div class="google-icon-wrapper">
+<img
+class="google-icon"
+src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Log
+o.svg"
+alt="Google sign-in"
+/>
+</div>
+<button onClick={() => { props.getAccessToken() }}
+rel="nofollow noopener"
+class="btn-text"
+>
+<b>Sign in with google</b>
+</button>
+</div>
+</div>
         <a
           href='https://jchasehuskey.github.io/meet/privacy.html'
           rel='nofollow noopener'
