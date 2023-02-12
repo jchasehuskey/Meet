@@ -53,13 +53,7 @@ class App extends Component {
 
 
   updateEvents = (location, inputNumber) => {
-    // To save data to local storage
-    localStorage.setItem("key", "value");
-
-    // To retrieve data from local storage
-    let storedValue = localStorage.getItem("key");
-    console.log(storedValue);
-
+    
     const { eventCount } = this.state;
     if (location === undefined) location = this.state.selectedLocation;
     if (navigator.onLine) {
@@ -75,12 +69,12 @@ class App extends Component {
           eventCount: inputNumber,
         });
         localStorage.setItem('events', JSON.stringify(events));
+        console.log('events', localStorage.getItem('events'));
         localStorage.setItem('locations', JSON.stringify(extractLocations(events)));
+        console.log('locations', localStorage.getItem('locations'));
       });
     } else {
-    // To retrieve data from local storage
-    let storedValue = localStorage.getItem("key");
-    console.log(storedValue);
+
       
       this.setState({
         events: JSON.parse(localStorage.getItem('events')) || [],
@@ -107,7 +101,9 @@ class App extends Component {
               locations: extractLocations(events),
             });
             localStorage.setItem('events', JSON.stringify(events));
+            console.log('events', localStorage.getItem('events'));
             localStorage.setItem('locations', JSON.stringify(extractLocations(events)));
+            console.log('locations', localStorage.getItem('locations'));
           }
         });
       } else {
