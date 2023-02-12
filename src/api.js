@@ -183,6 +183,46 @@ export const checkToken = async (accessToken) => {
 //     }
 // };
 
+
+
+//BEFORE ENTRY POINT
+
+// export const getEvents = async () => {
+//     NProgress.start();
+  
+//     if (window.location.href.startsWith('http://localhost')) {
+//       NProgress.done();
+//       return mockData;
+//     }
+  
+
+//     if (!navigator.onLine) {
+//         const data = localStorage.getItem('lastEvents');
+//         console.log('offline'); //just here to see if it even registers
+//         NProgress.done();
+//         return data ? JSON.parse(data).events : [];
+     
+//       }
+  
+//     const token = await getAccessToken();
+  
+//     if (token) {
+//       removeQuery();
+//       const url =
+//         `https://opfbzrzarh.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/${token}` +
+//         token;
+//       const result = await axios.get(url);
+//       if (result.data) {
+//         var locations = extractLocations(result.data.events);
+//         localStorage.setItem('lastEvents', JSON.stringify(result.data));
+//         localStorage.setItem('locations', JSON.stringify(locations));
+//       }
+//       NProgress.done();
+//       return result.data.events;
+//     }
+//   };
+
+
 export const getEvents = async () => {
     NProgress.start();
   
@@ -191,14 +231,18 @@ export const getEvents = async () => {
       return mockData;
     }
   
-
     if (!navigator.onLine) {
-        const data = localStorage.getItem('lastEvents');
-        console.log('offline'); //just here to see if it even registers
-        NProgress.done();
-        return data ? JSON.parse(data).events : [];
-     
+      const data = localStorage.getItem('lastEvents');
+      if (data) {
+        try {
+          const events = JSON.parse(data).events;
+          NProgress.done();
+          return events;
+        } catch (error) {
+          console.error(error);
+        }
       }
+    }
   
     const token = await getAccessToken();
   
@@ -217,6 +261,7 @@ export const getEvents = async () => {
       return result.data.events;
     }
   };
+  
 
 
 export const extractLocations = (events) => {
