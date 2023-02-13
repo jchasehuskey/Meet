@@ -10,9 +10,8 @@ import { getEvents, extractLocations, checkToken, getAccessToken } from
 './api';
 import './nprogress.css';
 import {OfflineAlert} from './Alert';
-import {
-  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
-} from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import EventGenre from './EventGenre';
 
 
 class App extends Component {
@@ -120,6 +119,7 @@ class App extends Component {
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents updateEvents={this.updateEvents}/>
         <h4>Events in each city</h4>
+        <EventGenre events={events} />
         <ResponsiveContainer height={400} >
           <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
             <CartesianGrid />
