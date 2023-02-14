@@ -14,7 +14,10 @@ background-color: red; */
 
 }
 
-
+.data-vis-wrapper{
+  display:flex;
+  justify-content:space-between;
+}
 
 .event_list{
   background-color: #494949 !important;
@@ -156,7 +159,8 @@ input[type="number"] {
 .data-vis-wrapper {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  /* flex-direction: column; */
+  
 }
 .data-vis-wrapper .recharts-responsive-container {
   min-width: 100%;
