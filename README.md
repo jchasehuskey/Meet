@@ -66,3 +66,7 @@ Show a chart with the number of upcoming events in each city.
 Given the user hasn't searched a specific city
 When the user opens the app
 Then a chart with an overview, indicating the number of upcoming events by city will be shown.
+
+![Main Screenshot](./imgs/mainimg.png)
+
+
