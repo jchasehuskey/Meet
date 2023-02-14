@@ -67,6 +67,23 @@ Given the user hasn't searched a specific city
 When the user opens the app
 Then a chart with an overview, indicating the number of upcoming events by city will be shown.
 
+
+Opened App Screen: User has ability to Search for City with events, and filter the number of events from GoogleApiCalender. 
+
 ![Main Screenshot](./imgs/mainimg.png)
 
+City Search Dropdown:
 
+![Main Screenshot](./imgs/mainimg2.png)
+
+ScatterChart and Graph of the displayed events:
+
+![Main Screenshot](./imgs/scatterchart.png)
+
+Rendered Events from Google Api Calender:
+
+![Main Screenshot](./imgs/events.png)
+
+PWA offline access:
+
+![Main Screenshot](./imgs/pwa.png)
